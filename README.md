@@ -47,6 +47,9 @@ $ make gen
 
 ### Migrate
 ```sh
+# create migration file
+$ make migrate-create file=OOOOO
+
 # up
 $ make migrate-up
 # down
