@@ -16,13 +16,17 @@ setup:
 build: 
 	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $(BIN_OUTPUT) $(MAIN_PATH)
 
+.PHONY: migrate-creae
+migrate-create:
+	docker-compose exec app migrate create -ext sql -dir ./migrations ${file}
+
 .PHONY: migrate-up
 migrate-up:
-	docker-compose exec app migrate -database "$(DSN)" -path migrate/. up
+	docker-compose exec app migrate -database "$(DSN)" -path migrations/. up
 
 .PHONY: migrate-down
 migrate-down:
-	docker-compose exec app migrate -database "$(DSN)" -path migrate/. down
+	docker-compose exec app migrate -database "$(DSN)" -path migrations/. down
 
 .PHONY: gen
 gen:
