@@ -1,7 +1,9 @@
 version: '3'
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./dev.Dockerfile
     depends_on:
       - mysqld
     volumes:
@@ -11,7 +13,8 @@ services:
     tty: true
 
   mysqld:
-    image: mysql:8.0.25
+    image: mysql:5.7
+    platform: linux/amd64
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_bin
@@ -22,3 +25,4 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
       MYSQL_DATABASE: api-server
+      TZ: Asia/Tokyo

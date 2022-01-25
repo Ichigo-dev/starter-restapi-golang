@@ -5,11 +5,14 @@ import (
 	"log"
 	"os"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/google/wire"
 )
 
 func DSN() string {
 	dsn := os.Getenv("DSN")
+	log.Printf("DSN is %s", dsn)
 
 	if dsn != "" {
 		return dsn

@@ -10,15 +10,18 @@ import (
 	"context"
 )
 
+import (
+	_ "github.com/go-sql-driver/mysql"
+)
+
 // Injectors from wire.go:
 
 func NewApp(ctx context.Context) (*App, func(), error) {
 	db := provideDB()
-	contentValidator := provideContentValidator()
-	contentServer := provideContentServer(ctx, db, contentValidator)
+	timePointServer := provideTimePointServer(db)
 	app := &App{
-		ContentServer: contentServer,
-		Db:            db,
+		TimePointServer: timePointServer,
+		Db:              db,
 	}
 	return app, func() {
 	}, nil
